@@ -130,10 +130,10 @@ export default function AdminRelatorioPonto() {
                       <td className="px-4 py-2.5 text-foreground leading-tight">
                         {new Date(item.ponto.data + 'T00:00:00').toLocaleDateString("pt-BR")}
                       </td>
-                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaEntrada, item.ponto.isManualEntrada)}</td>
-                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaInicioAlmoco, item.ponto.isManualInicioAlmoco)}</td>
-                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaFimAlmoco, item.ponto.isManualFimAlmoco)}</td>
-                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaSaida, item.ponto.isManualSaida)}</td>
+                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaEntrada, item.ponto.isManualEntrada ?? 0)}</td>
+                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaInicioAlmoco, item.ponto.isManualInicioAlmoco ?? 0)}</td>
+                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaFimAlmoco, item.ponto.isManualFimAlmoco ?? 0)}</td>
+                      <td className="px-3 py-2.5 text-center text-foreground">{formatarHora(item.ponto.horaSaida, item.ponto.isManualSaida ?? 0)}</td>
                       <td className="px-3 py-2.5 text-center font-medium text-primary">{calcularTotal(item.ponto)}</td>
                     </tr>
                   ))}

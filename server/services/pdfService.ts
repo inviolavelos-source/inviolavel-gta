@@ -9,8 +9,9 @@ function formatarData(data: Date | string | null | undefined): string {
   return d.toLocaleDateString("pt-BR");
 }
 
-const THEME_COLOR = "#008080"; // Teal original da marca
-
+const THEME_COLOR = "#000000"; // Preto elegante para cabeçalhos
+const ACCENT_COLOR = "#FBBF24"; // Amarelo vibrante Inviolável (oklch 0.84 0.22 85)
+const TEXT_COLOR = "#333333";
 export async function gerarFichaClientePDF(cliente: Cliente): Promise<{ arquivoPath: string; arquivoUrl: string }> {
   const ultimaOS = await buscarUltimaInstalacaoPorCliente(cliente.id);
 
@@ -33,20 +34,23 @@ export async function gerarFichaClientePDF(cliente: Cliente): Promise<{ arquivoP
     });
 
     // Função auxiliar para desenhar cabeçalhos de seção
-    const sectionHeader = (title: string) => {
+    const sectionHeader = (title: string, subtitle?: string) => {
       doc.moveDown(0.8);
       const y = doc.y;
       doc.rect(40, y, doc.page.width - 80, 20).fill(THEME_COLOR);
-      doc.fillColor("#ffffff").fontSize(10).font("Helvetica-Bold").text(title, 50, y + 5);
-      doc.fillColor("#333333");
-      doc.y = y + 25; // Garante que o cursor desça após a barra
+      doc.fillColor(ACCENT_COLOR).fontSize(10).font("Helvetica-Bold").text(title, 55, y + 5);
+      if (subtitle) {
+        doc.fillColor("#999999").fontSize(8).font("Helvetica").text(subtitle, doc.page.width - 250, y + 6, { align: "right", width: 200 });
+      }
+      doc.fillColor(TEXT_COLOR);
+      doc.y = y + 30;
     };
 
     // ─── Cabeçalho ────────────────────────────────────────────────────────
-    doc.rect(0, 0, doc.page.width, 70).fill(THEME_COLOR);
-    doc.fillColor("#ffffff").fontSize(22).font("Helvetica-Bold").text("INVIOLÁVEL", 40, 25);
-    doc.fontSize(10).font("Helvetica").text("Monitoramento Eletrônico", 165, 34);
-    doc.fillColor("#ffffff").fontSize(10).text("FICHA DE CADASTRO COMPLETA", 350, 30, { align: "right", width: 200 });
+    doc.rect(0, 0, doc.page.width, 85).fill(THEME_COLOR);
+    doc.fillColor(ACCENT_COLOR).fontSize(26).font("Helvetica-Bold").text("INVIOLÁVEL", 40, 20);
+    doc.fillColor("#ffffff").fontSize(11).font("Helvetica").text("Monitoramento Eletrônico", 195, 33);
+    doc.fillColor(ACCENT_COLOR).fontSize(10).text("FICHA DE CADASTRO COMPLETA", 350, 35, { align: "right", width: 200 });
 
     doc.moveDown(3);
     doc.fillColor("#666666").fontSize(8).font("Helvetica").text(`Emissão: ${new Date().toLocaleString("pt-BR")}   |   ID: #${cliente.id}`, { align: "right" });

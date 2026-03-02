@@ -20,12 +20,12 @@ export default function AppHistorico() {
 
   const { data: instalacoes } = trpc.instalacoes.minhasInstalacoes.useQuery({ status: "CONCLUIDA" });
 
-  const formatarHora = (dt: Date | null | undefined) => {
+  const formatarHora = (dt: string | Date | null | undefined) => {
     if (!dt) return "—";
     return new Date(dt).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
   };
 
-  const calcularTotal = (item: { ponto: { horaEntrada: Date | null; horaSaida: Date | null; horaInicioAlmoco: Date | null; horaFimAlmoco: Date | null } }) => {
+  const calcularTotal = (item: any) => {
     const p = item.ponto;
     if (!p.horaEntrada) return "—";
     const entrada = new Date(p.horaEntrada).getTime();
@@ -123,7 +123,7 @@ export default function AppHistorico() {
           </CardHeader>
           <CardContent className="p-0">
             {!instalacoes || instalacoes.length === 0 ? (
-              <p className="text-center text-sm text-muted-foreidas py-6">Nenhuma instalação concluída.</p>
+              <p className="text-center text-sm text-muted-foreground py-6">Nenhuma instalação concluída.</p>
             ) : (
               <div className="divide-y divide-border">
                 {instalacoes.map((item) => (

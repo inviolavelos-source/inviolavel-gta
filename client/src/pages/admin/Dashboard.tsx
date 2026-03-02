@@ -3,8 +3,9 @@ import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, UserCircle, Wrench, CheckCircle, Clock, AlertCircle, Plus, ArrowRight } from "lucide-react";
+import { Users, UserCircle, Wrench, CheckCircle, Clock, AlertCircle, Plus, ArrowRight, BarChart3 } from "lucide-react";
 import AppLayout from "@/components/AppLayout";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
 
 export default function AdminDashboard() {
   const { funcionario } = useAuth();
@@ -53,7 +54,7 @@ export default function AdminDashboard() {
                 <Plus className="w-4 h-4" /> Cliente
               </Button>
             </Link>
-            <Link href="/admin/instalacoes/nova">
+            <Link href="/admin/instalacoes">
               <Button size="sm" className="gap-2">
                 <Plus className="w-4 h-4" /> Instalação
               </Button>
@@ -123,24 +124,51 @@ export default function AdminDashboard() {
 
         {/* Desempenho e Estoque */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="border-border">
+          <Card className="border-border overflow-hidden">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-green-400" /> Produtividade dos Técnicos (OS Concluídas)
+                <BarChart3 className="w-4 h-4 text-primary" /> Produtividade (OS Concluídas)
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-4">
-              <div className="space-y-3">
-                {resumo?.performanceTecnicos?.map((t: any) => (
-                  <div key={t.id} className="flex items-center justify-between bg-muted/20 p-2 rounded border border-border">
-                    <span className="text-xs font-medium">{t.nome}</span>
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">{t.concluidas} OS</span>
-                  </div>
-                ))}
-                {(!resumo?.performanceTecnicos || resumo.performanceTecnicos.length === 0) && (
-                  <p className="text-xs text-muted-foreground text-center py-4">Nenhuma OS concluída este mês.</p>
-                )}
-              </div>
+            <CardContent className="p-4 h-[250px] w-full">
+              {resumo?.performanceTecnicos && resumo.performanceTecnicos.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={resumo.performanceTecnicos} layout="vertical" margin={{ left: -20, right: 20, top: 0, bottom: 0 }}>
+                    <XAxis type="number" hide />
+                    <YAxis
+                      dataKey="nome"
+                      type="category"
+                      width={80}
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: 'currentColor', fontSize: 10, opacity: 0.8 }}
+                    />
+                    <Tooltip
+                      cursor={{ fill: 'white', opacity: 0.05 }}
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="bg-card border border-border p-2 rounded-lg shadow-xl text-[10px]">
+                              <p className="font-bold text-foreground">{payload[0].payload.nome}</p>
+                              <p className="text-primary">{payload[0].value} OS Concluídas</p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                    <Bar dataKey="concluidas" radius={[0, 4, 4, 0]} barSize={20}>
+                      {resumo.performanceTecnicos.map((_: any, index: number) => (
+                        <Cell key={index} fill={`var(--primary)`} fillOpacity={1 - (index * 0.15)} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-muted-foreground">
+                  <p className="text-xs">Nenhum dado disponível</p>
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -170,7 +198,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: "Novo Cliente", href: "/admin/clientes/novo", icon: UserCircle },
-            { label: "Nova Instalação", href: "/admin/instalacoes/nova", icon: Wrench },
+            { label: "Nova Instalação", href: "/admin/instalacoes", icon: Wrench },
             { label: "Novo Produto", href: "/admin/produtos", icon: Plus },
             { label: "Relatório Ponto", href: "/admin/relatorios/ponto", icon: Clock },
           ].map((atalho) => (

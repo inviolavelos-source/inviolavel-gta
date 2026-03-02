@@ -52,8 +52,8 @@ export default function Login() {
       <div className="w-full max-w-md relative z-10">
         {/* Logo e título */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 text-primary-foreground">
-            <Lock className="w-8 h-8" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 text-primary-foreground shadow-[0_0_20px_rgba(var(--primary),0.2)]">
+            <Shield className="w-8 h-8" />
           </div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight">INVIOLÁVEL</h1>
           <p className="text-muted-foreground mt-1 text-sm tracking-widest uppercase">Monitoramento Eletrônico</p>
