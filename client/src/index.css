@@ -45,41 +45,44 @@
 
 :root {
   --radius: 0.75rem;
-  /* INVIOLÁVEL: Tema escuro Premium (Gold, Black & White) */
-  --background: oklch(0.08 0.01 250); /* Deep midnight/black */
-  --foreground: oklch(0.98 0 0); /* Pure crisp white */
-  --card: oklch(0.12 0.01 250);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.11 0.01 250);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.75 0.15 85); /* Sophisticated Gold */
-  --primary-foreground: oklch(0.08 0.01 250);
-  --secondary: oklch(0.18 0.02 250);
-  --secondary-foreground: oklch(0.95 0.01 250);
-  --muted: oklch(0.15 0.01 250);
-  --muted-foreground: oklch(0.60 0.02 250);
-  --accent: oklch(0.75 0.15 85);
-  --accent-foreground: oklch(0.08 0.01 250);
-  --destructive: oklch(0.55 0.18 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.18 0.02 250);
-  --input: oklch(0.14 0.01 250);
-  --ring: oklch(0.75 0.15 85);
-  
-  --chart-1: oklch(0.75 0.15 85); /* Gold */
-  --chart-2: oklch(0.98 0 0);    /* White */
-  --chart-3: oklch(0.50 0.05 250);
-  --chart-4: oklch(0.30 0.03 250);
-  --chart-5: oklch(0.55 0.18 25);
-  
-  --sidebar: oklch(0.06 0.01 250); /* Almost pure black sidebar */
-  --sidebar-foreground: oklch(0.95 0.01 250);
-  --sidebar-primary: oklch(0.75 0.15 85);
-  --sidebar-primary-foreground: oklch(0.08 0.01 250);
-  --sidebar-accent: oklch(0.14 0.02 250);
-  --sidebar-accent-foreground: oklch(0.98 0 250);
-  --sidebar-border: oklch(0.12 0.02 250);
-  --sidebar-ring: oklch(0.75 0.15 85);
+  /* INVIOLÁVEL: Tema Black & White Ultra High Contrast */
+  --background: oklch(0 0 0);
+  /* Absolute Black */
+  --foreground: oklch(1 0 0);
+  /* Pure White */
+  --card: oklch(0.08 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.08 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  /* Pure White for branding */
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.15 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.12 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(1 0 0);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.5 0.15 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.2 0 0);
+  --input: oklch(0.1 0 0);
+  --ring: oklch(1 0 0);
+
+  --chart-1: oklch(1 0 0);
+  --chart-2: oklch(0.7 0 0);
+  --chart-3: oklch(0.4 0 0);
+  --chart-4: oklch(0.2 0 0);
+  --chart-5: oklch(0.5 0.15 25);
+
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(1 0 0);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.15 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.15 0 0);
+  --sidebar-ring: oklch(1 0 0);
 }
 
 /* Tema único escuro INVIOLÁVEL — sem alternância */
