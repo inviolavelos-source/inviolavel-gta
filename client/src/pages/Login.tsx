@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Shield, Lock, Mail, Eye, EyeOff } from "lucide-react";
+import { Logo } from "@/components/Logo";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
   const [, navigate] = useLocation();
@@ -42,27 +43,25 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* Fundo decorativo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
+    <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Premium background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] opacity-50" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[80px]" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[80px]" />
       </div>
 
-      <div className="w-full max-w-md relative z-10">
+      <div className="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
         {/* Logo e título */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4 text-primary-foreground shadow-[0_0_20px_rgba(var(--primary),0.2)]">
-            <Shield className="w-8 h-8" />
-          </div>
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">INVIOLÁVEL</h1>
-          <p className="text-muted-foreground mt-1 text-sm tracking-widest uppercase">Monitoramento Eletrônico</p>
+        <div className="text-center mb-10">
+          <Logo size="lg" className="mb-2 text-white" />
+          <p className="text-muted-foreground mt-2 text-xs tracking-[0.3em] font-medium uppercase opacity-60">Monitoramento Eletrônico</p>
         </div>
 
-        <Card className="border-border shadow-2xl">
-          <CardHeader className="pb-4 pt-6 px-6">
-            <h2 className="text-xl font-semibold text-foreground">Entrar na conta</h2>
-            <p className="text-sm text-muted-foreground">Acesso restrito a colaboradores autorizados</p>
+        <Card className="border-white/5 bg-zinc-950/50 backdrop-blur-xl shadow-2xl shadow-black/50">
+          <CardHeader className="pb-4 pt-8 px-8 border-b border-white/5">
+            <h2 className="text-xl font-bold text-foreground">Acesso ao Sistema</h2>
+            <p className="text-sm text-muted-foreground mt-1">Identifique-se para gerenciar seus levantamentos e instalações.</p>
           </CardHeader>
           <CardContent className="px-6 pb-6">
             <form onSubmit={handleSubmit} className="space-y-4">
