@@ -120,3 +120,5 @@ temp/
 out.log
 tsc_errors*.txt
 pdf_text.txt
+
+.vercel
