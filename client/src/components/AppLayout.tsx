@@ -53,13 +53,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-4 py-5 border-b border-sidebar-border">
-        <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center flex-shrink-0 text-primary-foreground shadow-[0_0_15px_rgba(var(--primary),0.3)]">
-          <Shield className="w-5 h-5" />
-        </div>
+      <div className="flex items-center gap-3 px-4 py-5 border-b border-sidebar-border h-16">
         <div className="min-w-0">
-          <p className="font-bold text-sidebar-foreground text-sm leading-tight">INVIOLÁVEL</p>
-          <p className="text-xs text-muted-foreground truncate">{isAdmin ? "Administrador" : "Funcionário"}</p>
+          <p className="font-bold text-sidebar-foreground text-sm tracking-widest leading-tight">INVIOLÁVEL</p>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-widest truncate">{isAdmin ? "Administrador" : "Funcionário"}</p>
         </div>
       </div>
 
@@ -131,8 +128,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <Shield className="w-5 h-5 text-primary flex-shrink-0" />
-            <span className="font-bold text-sm truncate">INVIOLÁVEL</span>
+            <span className="font-bold text-sm tracking-widest truncate">INVIOLÁVEL</span>
           </div>
         </header>
 
