@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: inviolavel-gta
+    env: node
+    plan: free
+    buildCommand: pnpm install && pnpm run build
+    startCommand: pnpm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        value: "" # Deixe vazio para usar o sqlite.db local (não persistente no plano free)
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
+    autoDeploy: true
