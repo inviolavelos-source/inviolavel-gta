@@ -259,10 +259,10 @@ export default function AppPonto() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="justificativa">Justificativa (opcional)</Label>
+              <Label htmlFor="justificativa">Justificativa *</Label>
               <Textarea
                 id="justificativa"
-                placeholder="Por que está registando manualmente?"
+                placeholder="Explique o motivo do registo manual (obrigatório)"
                 value={justificativa}
                 onChange={(e) => setJustificativa(e.target.value)}
               />
@@ -274,7 +274,7 @@ export default function AppPonto() {
             </Button>
             <Button
               onClick={handleManualSubmit}
-              disabled={registrarMutation.isPending || !manualTipo || !manualTime}
+              disabled={registrarMutation.isPending || !manualTipo || !manualTime || !justificativa.trim()}
             >
               {registrarMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
               Confirmar Registo

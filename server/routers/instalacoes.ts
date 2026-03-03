@@ -71,12 +71,36 @@ export const instalacoesRouter = router({
       funcionarioId: z.number().optional().nullable(),
       tecnicosIds: z.array(z.number()).optional().nullable(),
       observacoes: z.string().optional().nullable(),
+      plantaUrl: z.string().optional().nullable(),
+      plantaPath: z.string().optional().nullable(),
     }))
     .mutation(async ({ input, ctx }) => {
       await adminCheck(ctx);
       await criarInstalacao(input as any);
       await registrarLog(ctx.funcionario!.id, "CRIAR_INSTALACAO", "instalacoes", undefined, { tipo: input.tipo, clienteId: input.clienteId, provisorio: input.clienteProvisorio });
       return { success: true };
+    }),
+
+  subirPlanta: publicProcedure
+    .input(z.object({
+      instalacaoId: z.number(),
+      base64: z.string(),
+      nomeArquivo: z.string()
+    }))
+    .mutation(async ({ input, ctx }) => {
+      await adminCheck(ctx);
+
+      const buffer = Buffer.from(input.base64.split(",")[1]!, "base64");
+      const path = `instalacoes/${input.instalacaoId}/planta_${Date.now()}_${input.nomeArquivo.replace(/\s+/g, '_')}`;
+
+      const result = await storagePut(path, buffer);
+
+      await atualizarInstalacao(input.instalacaoId, {
+        plantaUrl: result.url,
+        plantaPath: result.key,
+      });
+
+      return { success: true, url: result.url };
     }),
 
   atualizar: publicProcedure
@@ -90,6 +114,8 @@ export const instalacoesRouter = router({
       funcionarioId: z.number().optional().nullable(),
       tecnicosIds: z.array(z.number()).optional().nullable(),
       observacoes: z.string().optional().nullable(),
+      plantaUrl: z.string().optional().nullable(),
+      plantaPath: z.string().optional().nullable(),
     }))
     .mutation(async ({ input, ctx }) => {
       await adminCheck(ctx);

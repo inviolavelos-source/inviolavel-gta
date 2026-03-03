@@ -49,6 +49,14 @@ export const pontoRouter = router({
       }[input.tipo] as any;
 
       const isManual = !!input.horaManual;
+
+      if (isManual && !input.justificativa) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Justificativa obrigatória para registro manual de ponto."
+        });
+      }
+
       let valor = new Date();
 
       if (isManual) {

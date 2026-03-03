@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2, CheckCircle, Package, MapPin, Calendar, User, Loader2, List, Users, Save, FileText, PlayCircle, Camera, Image as ImageIcon, X, Edit3 } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, CheckCircle, Package, MapPin, Calendar, User, Loader2, List, Users, Save, FileText, PlayCircle, Camera, Image as ImageIcon, X, Edit3, Map as MapIcon, Download } from "lucide-react";
 import { getGeolocation } from "@/lib/geo";
 import SignaturePad from "@/components/SignaturePad";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -161,6 +161,14 @@ export default function InstalacaoDetalhe() {
     onError: (err) => toast.error("Erro ao gerar PDF: " + err.message),
   });
 
+  const subirPlantaMutation = trpc.instalacoes.subirPlanta.useMutation({
+    onSuccess: () => {
+      toast.success("Planta enviada com sucesso!");
+      refetch();
+    },
+    onError: (err) => toast.error("Erro ao enviar planta: " + err.message),
+  });
+
   const excluirMutation = trpc.instalacoes.excluir.useMutation({
     onSuccess: () => {
       toast.success("Instalação excluída com sucesso!");
@@ -304,6 +312,59 @@ export default function InstalacaoDetalhe() {
                   <p className="text-sm text-foreground">{instalacao.observacoes}</p>
                 </div>
               )}
+              {/* PLANTA BAIXA SECTION */}
+              <div className="col-span-2 pt-2 border-t border-border mt-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <MapIcon className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-semibold">Planta Baixa</span>
+                  </div>
+                  {isAdmin && (
+                    <Label htmlFor="upload-planta" className="cursor-pointer">
+                      <Button variant="ghost" size="sm" className="h-7 text-[10px] gap-1 pointer-events-none text-primary">
+                        <Plus className="w-3 h-3" /> {instalacao.plantaUrl ? "Trocar Planta" : "Subir Planta"}
+                      </Button>
+                      <input
+                        id="upload-planta"
+                        type="file"
+                        className="hidden"
+                        accept="image/*,application/pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          const reader = new FileReader();
+                          reader.onload = (ev) => {
+                            subirPlantaMutation.mutate({
+                              instalacaoId,
+                              base64: ev.target?.result as string,
+                              nomeArquivo: file.name
+                            });
+                          };
+                          reader.readAsDataURL(file);
+                        }}
+                      />
+                    </Label>
+                  )}
+                </div>
+                {instalacao.plantaUrl ? (
+                  <div className="mt-2 p-3 rounded-lg bg-muted/30 border border-primary/20 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-primary" />
+                      <span className="text-xs font-medium truncate max-w-[150px]">Planta_Disponivel.{instalacao.plantaUrl.split('.').pop()}</span>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-[10px] gap-1"
+                      onClick={() => window.open(instalacao.plantaUrl, "_blank")}
+                    >
+                      <Download className="w-3 h-3" /> Abrir / Ver
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="text-[10px] text-muted-foreground mt-1 italic">Nenhuma planta disponível para esta OS.</p>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

@@ -137,6 +137,8 @@ export const instalacoes = sqliteTable("instalacoes", {
   latitudeFim: text("latitudeFim"),
   longitudeFim: text("longitudeFim"),
   checklist: text("checklist", { mode: "json" }),
+  plantaUrl: text("plantaUrl"),
+  plantaPath: text("plantaPath"),
 });
 
 export type Instalacao = typeof instalacoes.$inferSelect;
