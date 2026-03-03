@@ -21,20 +21,8 @@ export function Logo({ className, iconClassName, size = "md", showText = true }:
     return (
         <div className={cn("inline-flex items-center font-black tracking-tighter select-none", currentSize.spacing, className)}>
             {showText && (
-                <div className={cn("flex items-center", currentSize.text)}>
-                    <span>INVI</span>
-                    <div className="relative flex items-center justify-center mx-[0.05em]">
-                        <span className="opacity-0">O</span>
-                        <Lock
-                            className={cn(
-                                "absolute inset-0 m-auto text-primary animate-in fade-in zoom-in duration-700",
-                                currentSize.icon,
-                                iconClassName
-                            )}
-                            strokeWidth={3}
-                        />
-                    </div>
-                    <span>LÁVEL</span>
+                <div className={cn("flex items-center text-white", currentSize.text)}>
+                    <span>INVIOLÁVEL</span>
                 </div>
             )}
             {!showText && (
